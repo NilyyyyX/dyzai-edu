@@ -1,0 +1,85 @@
+.weaknesses-page {
+  min-height: 100vh;
+  background: #f5f5f5;
+  padding: 24px;
+}
+
+.loading {
+  text-align: center;
+  padding: 100px;
+  color: #6b7280;
+}
+
+.empty {
+  text-align: center;
+  padding: 120px 40px;
+}
+
+.empty-icon {
+  font-size: 100px;
+  display: block;
+  margin-bottom: 24px;
+}
+
+.empty-text {
+  font-size: 36px;
+  font-weight: 600;
+  color: #1f2937;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.empty-hint {
+  font-size: 26px;
+  color: #6b7280;
+  display: block;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.weakness-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.subject {
+  font-size: 24px;
+  color: #6b7280;
+}
+
+.severity-badge {
+  padding: 6px 16px;
+  border-radius: 20px;
+}
+
+.severity-text {
+  color: #ffffff;
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.kp-name {
+  font-size: 32px;
+  font-weight: 600;
+  color: #1f2937;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.detected-at {
+  font-size: 22px;
+  color: #9ca3af;
+  display: block;
+}

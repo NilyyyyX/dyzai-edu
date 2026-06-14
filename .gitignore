@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.env
+*.log
+.DS_Store
+Thumbs.db
+vibe_images/
+*.tar.gz
+packages/server/db/*.json
+nul
+.swc/

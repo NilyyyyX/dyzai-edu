@@ -1,0 +1,22 @@
+{
+  "name": "learning-miniprogram",
+  "version": "0.1.0",
+  "private": true,
+  "description": "小学生学习分析小程序 - 学练测评闭环",
+  "scripts": {
+    "dev": "concurrently \"pnpm --filter server dev\" \"pnpm --filter app dev:h5\"",
+    "dev:server": "pnpm --filter server dev",
+    "dev:app": "pnpm --filter app dev:h5",
+    "build": "pnpm --recursive run build",
+    "db:migrate": "pnpm --filter server db:migrate",
+    "db:seed": "pnpm --filter server db:seed",
+    "db:reset": "pnpm --filter server db:reset"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
+  }
+}

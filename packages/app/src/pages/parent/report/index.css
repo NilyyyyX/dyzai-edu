@@ -1,0 +1,82 @@
+.report-page {
+  min-height: 100vh;
+  background: #f5f5f5;
+  padding: 24px;
+}
+
+.report-actions {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.loading {
+  text-align: center;
+  padding: 100px;
+  color: #6b7280;
+}
+
+.empty {
+  text-align: center;
+  padding: 100px 40px;
+  color: #6b7280;
+}
+
+.hint {
+  display: block;
+  margin-top: 16px;
+  font-size: 24px;
+}
+
+.report-content {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 32px;
+}
+
+.section {
+  margin-bottom: 32px;
+}
+
+.section-title {
+  font-size: 32px;
+  font-weight: 600;
+  color: #1f2937;
+  display: block;
+  margin-bottom: 16px;
+}
+
+.section-text {
+  font-size: 28px;
+  color: #374151;
+  line-height: 1.6;
+  display: block;
+}
+
+.item {
+  padding: 16px 20px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  font-size: 26px;
+}
+
+.item.good {
+  background: #ecfdf5;
+  color: #059669;
+}
+
+.item.weak {
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+.item.tip {
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.severity {
+  font-size: 22px;
+  color: #6b7280;
+  margin-left: 8px;
+}
