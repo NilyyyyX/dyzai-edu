@@ -151,14 +151,32 @@ export async function receiveMessage(req: Request, res: Response) {
     const decryptedXml = crypto.decrypt(encrypted);
     const msgData = xmlParser.parse(decryptedXml);
     const msgType = msgData?.xml?.MsgType;
-    const content = msgData?.xml?.Content || '';
     const fromUser = msgData?.xml?.FromUserName || '';
+    const xmlNode = msgData?.xml || {};
 
-    console.log(`[WeCom] Received ${msgType} from ${fromUser}: ${content.slice(0, 50)}...`);
+    // Extract text content from various message types
+    let content = '';
+    if (msgType === 'text') {
+      content = xmlNode.Content || '';
+    } else if (msgType === 'location') {
+      content = xmlNode.Label || '';
+    } else if (msgType === 'link') {
+      content = `${xmlNode.Title || ''}\n${xmlNode.Description || ''}\n${xmlNode.Url || ''}`;
+    } else if (msgType === 'file') {
+      content = `[文件: ${xmlNode.FileName || '未知'}]`;
+    } else if (msgType === 'image') {
+      content = '';
+    } else {
+      // Log full XML for unknown types to help debug
+      console.log(`[WeCom] Unknown msg type '${msgType}', full XML:`, decryptedXml.slice(0, 500));
+      // Try to extract any text content from the XML
+      content = xmlNode.Content || xmlNode.Title || xmlNode.Description || '';
+    }
 
-    // Only process text messages
-    if (msgType !== 'text' || !content) {
-      const reply = buildReplyXml(fromUser, '请发送文字消息，我会自动分析学习情况。', crypto, ts, nc);
+    console.log(`[WeCom] Received ${msgType} from ${fromUser}: ${(content || '').slice(0, 80)}...`);
+
+    if (!content || content.trim().length === 0) {
+      const reply = buildReplyXml(fromUser, '请发送文字消息或合并转发的聊天记录，我会自动分析学习情况。', crypto, ts, nc);
       res.type('application/xml').send(reply);
       return;
     }
