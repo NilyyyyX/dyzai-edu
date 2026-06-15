@@ -243,3 +243,46 @@ export async function listMessages(req: Request, res: Response) {
     .slice(0, 50);
   res.json(messages);
 }
+
+/**
+ * POST /api/wecom/webhook - Group chat bot webhook
+ * Receives JSON messages from Enterprise WeChat group chat bot
+ */
+export async function receiveWebhook(req: Request, res: Response) {
+  try {
+    const { MsgType, Content, FromUserName } = req.body || {};
+
+    console.log(`[WeCom Webhook] Received ${MsgType} from ${FromUserName}: ${(Content || '').slice(0, 80)}...`);
+
+    // Only analyze text messages with enough content
+    if (MsgType !== 'text' || !Content || Content.trim().length < 10) {
+      res.json({ errcode: 0 });
+      return;
+    }
+
+    const analysisResult = await analyzeMessage(Content);
+
+    // Save to database
+    const db = await getDb();
+    const now = new Date().toISOString();
+    db.data.chat_messages.push({
+      id: db.data.chat_messages.length + 1,
+      from_user: FromUserName || 'group_webhook',
+      content: Content,
+      analysis_result: analysisResult,
+      received_at: now,
+    });
+    await db.write();
+
+    // Reply with analysis result via markdown message
+    res.json({
+      msgtype: 'markdown',
+      markdown: {
+        content: `## 📊 学情分析结果\n${analysisResult}`,
+      },
+    });
+  } catch (e) {
+    console.error('[WeCom Webhook] Error:', e);
+    res.json({ errcode: 0 });
+  }
+}
